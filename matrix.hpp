@@ -7,6 +7,7 @@
 
 #define SIZE 3
 #define INVALID -1
+#define DIRECTIONS 4
 #define UP 0
 #define RIGHT 1
 #define DOWN 2
@@ -21,6 +22,7 @@ class Matrix
 
   const int move_row[4] = {-1, 0, 1, 0};
   const int move_col[4] = {0, 1, 0, -1};
+  const std::string solution = "012345678";
 
 private:
   int **matrix;
@@ -31,8 +33,9 @@ public:
   Matrix();
   Matrix(int **matrix);
   ~Matrix();
+  void fillMatrix(std::string numbers);
   int *operator[](int index);
-  bool verifySolution(std::string solution);
+  bool verifySolution();
   std::string toString();
   std::ostream &printMatrix(std::ostream &output);
   bool possibleMove(int dir);

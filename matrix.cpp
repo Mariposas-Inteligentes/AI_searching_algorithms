@@ -38,6 +38,18 @@ Matrix::~Matrix()
   delete[] this->matrix;
 }
 
+void Matrix::fillMatrix(std::string numbers)
+{
+  int string_count = 0;
+  for (int row = 0; row < SIZE; ++row)
+  {
+    for (int col = 0; col < SIZE; ++col)
+    {
+      this->matrix[row][col] = ((int)numbers[string_count++]) - 48;
+    }
+  }
+}
+
 int *Matrix::operator[](int index)
 {
   return this->matrix[index];
@@ -56,9 +68,9 @@ std::string Matrix::toString()
   return solution.str();
 }
 
-bool Matrix::verifySolution(std::string solution)
+bool Matrix::verifySolution()
 {
-  return this->toString() == solution;
+  return this->toString() == this->solution;
 }
 
 std::ostream &Matrix::printMatrix(std::ostream &output)
@@ -95,4 +107,5 @@ Matrix *Matrix::movePiece(int dir)
   newMatrix->row0 += this->move_row[dir];
   newMatrix->col0 += this->move_col[dir];
   newMatrix->matrix[newMatrix->row0][newMatrix->col0] = 0;
+  return newMatrix;
 }
