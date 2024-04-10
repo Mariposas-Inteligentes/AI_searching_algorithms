@@ -1,7 +1,8 @@
 // Authors: Luis Solano, Angie Solís, Emilia Víquez
 
-#include "ids.hpp"
 #include "breadthFirst.hpp"
+#include "ids.hpp"
+#include "ids_h.hpp"
 
 #include <iostream>
 
@@ -12,6 +13,7 @@ int main(int argc, char **argv)
   {
     initial = argv[1];
   }
+
   // IDS Algorithm
   std::cout << "IDS Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
   std::cout << "Solution printed from start to end: \n";
@@ -24,7 +26,11 @@ int main(int argc, char **argv)
   BreadthFirst bf_algorithm(initial);
   bf_algorithm.solve();
 
-
+  // IDS* Algorithm
+  std::cout << "IDS* Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
+  std::cout << "Solution printed from start to end: \n";
+  Ids_H idsh_algorithm(initial);
+  idsh_algorithm.solve();
 
   return 0;
 }
