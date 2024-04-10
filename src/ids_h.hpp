@@ -16,7 +16,12 @@ class Ids_H
 {
   private:
     Matrix initial;
+    Common common;
     std::stack<std::string> path;
+
+    bool checkLevel(int level, int actualLevel, Matrix* actual);
+    Matrix* findNextLevel(Matrix* actual, int* actualCost);
+    void printSolution();
 
   public:
     Ids_H();

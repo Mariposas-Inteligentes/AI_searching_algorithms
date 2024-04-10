@@ -3,6 +3,7 @@
 #ifndef COMMON
 #define COMMON
 
+#include <sstream>
 #include <string>
 
 class Common {
@@ -21,6 +22,7 @@ class Common {
 
   public:
     int heuristic(const std::string actual);
+    std::string printAsMatrix(std::string text, int size);
 };
 
 #endif  // COMMON
