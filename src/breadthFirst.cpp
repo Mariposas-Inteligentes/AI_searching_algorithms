@@ -1,12 +1,10 @@
 #include "breadthFirst.hpp"
 
 BreadthFirst::BreadthFirst() {
-  this->actualMatrix.fillMatrix("142350678");
   this->pending.push(new Node("142350678"));
 }
 
 BreadthFirst::BreadthFirst(std::string initial) {
-  this->actualMatrix.fillMatrix(initial);
   this->pending.push(new Node(initial));
 }
 
@@ -20,6 +18,7 @@ void BreadthFirst::solve() {
   while (!this->pending.empty()){
     // Get next node and uptate it to the matrix
     Node* actualNode = this->pending.front();
+
     actualMatrix.fillMatrix(actualNode->getValue());
     this->pending.pop();
     
@@ -40,7 +39,7 @@ void BreadthFirst::solve() {
       if (this->actualMatrix.possibleMove(dir)) {
         Matrix *newMatrix = actualMatrix.movePiece(dir);
         // If new matrix was not previously checked, then add it to the queue
-        if (this->visited.find(newMatrix->toString()) != this->visited.end()) {
+        if (this->visited.find(newMatrix->toString()) == this->visited.end()) {
           this->pending.push(new Node(newMatrix->toString(), actualNode));
         }
         delete newMatrix;
@@ -73,4 +72,6 @@ void BreadthFirst::printSolution(Node * finalNode) {
     std::cout << std::endl;
     finalNode = finalNode->getParent();
   }
+  // when we exit this cycle, the final node is the root, and we still need to print it
+  this->printAsMatrix(finalNode->getValue());
 }
