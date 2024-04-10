@@ -7,6 +7,11 @@ Ids::Ids()
   this->initial.fillMatrix("724506831");
 }
 
+Ids::Ids(std::string strInitial)
+{
+  this->initial.fillMatrix(strInitial);
+}
+
 Ids::~Ids()
 {
 }
@@ -31,10 +36,13 @@ void Ids::solve()
 
 bool Ids::checkLevel(int level, int actualLevel, Matrix *actual)
 {
-  if (level == actualLevel && actual->verifySolution())
+  if (level == actualLevel)
   {
-    this->path.push(actual->toString());
-    return true;
+    if (actual->verifySolution())
+    {
+      this->path.push(actual->toString());
+      return true;
+    }
   }
   else
   {
@@ -52,6 +60,7 @@ bool Ids::checkLevel(int level, int actualLevel, Matrix *actual)
       }
     }
   }
+  return false;
 }
 
 void Ids::printAsMatrix(std::string text)

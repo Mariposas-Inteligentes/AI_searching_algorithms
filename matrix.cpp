@@ -48,6 +48,11 @@ void Matrix::fillMatrix(std::string numbers)
     for (int col = 0; col < SIZE; ++col)
     {
       this->matrix[row][col] = ((int)numbers[string_count++]) - 48;
+      if (this->matrix[row][col] == 0)
+      {
+        this->col0 = col;
+        this->row0 = row;
+      }
     }
   }
 }

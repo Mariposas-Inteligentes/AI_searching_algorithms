@@ -20,6 +20,7 @@ private:
 
 public:
   Ids();
+  Ids(std::string strInitial);
   ~Ids();
   void solve();
   bool checkLevel(int level, int actualLevel, Matrix *actual);
