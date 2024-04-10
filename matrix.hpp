@@ -1,3 +1,5 @@
+// Authors: Luis Solano, Angie Solís, Emilia Víquez
+
 #ifndef MATRIX
 #define MATRIX
 

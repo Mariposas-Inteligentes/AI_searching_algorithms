@@ -1,3 +1,5 @@
+// Authors: Luis Solano, Angie Solís, Emilia Víquez
+
 #include "ids.hpp"
 
 Ids::Ids()
@@ -11,12 +13,19 @@ Ids::~Ids()
 
 void Ids::solve()
 {
+  bool solved = false;
   for (int level = 0; level < LIMIT; ++level)
   {
-    if (checkLevel(level, 0, &initial))
+    solved = checkLevel(level, 0, &initial);
+    if (solved)
     {
+      this->printSolution();
       break;
     }
+  }
+  if (!solved)
+  {
+    std::cout << "No solution was found in " << LIMIT << " levels" << std::endl;
   }
 }
 
@@ -29,7 +38,7 @@ bool Ids::checkLevel(int level, int actualLevel, Matrix *actual)
   }
   else
   {
-    for (int dir = 0; dir < DIRECTIONS; dir++)
+    for (int dir = 0; dir < DIRECTIONS; ++dir)
     {
       if (actual->possibleMove(dir))
       {
@@ -42,5 +51,36 @@ bool Ids::checkLevel(int level, int actualLevel, Matrix *actual)
         delete newMatrix;
       }
     }
+  }
+}
+
+void Ids::printAsMatrix(std::string text)
+{
+  for (int i = 0; i < text.length(); ++i)
+  {
+    if (i % SIZE == 0)
+    {
+      std::cout << "\n";
+    }
+
+    if (text[i] != '0')
+    {
+      std::cout << text[i] << " ";
+    }
+    else
+    {
+      std::cout << "_ ";
+    }
+  }
+}
+
+void Ids::printSolution()
+{
+  while (!this->path.empty())
+  {
+    std::string actualNode = this->path.top();
+    this->printAsMatrix(actualNode);
+    std::cout << "\n";
+    this->path.pop();
   }
 }
