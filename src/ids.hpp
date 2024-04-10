@@ -3,6 +3,7 @@
 #ifndef IDS
 #define IDS
 
+#include "common.hpp"
 #include "matrix.hpp"
 #include <iostream>
 #include <stack>
@@ -12,19 +13,20 @@
 
 class Ids
 {
-private:
-  Matrix initial;
-  std::stack<std::string> path;
+  private:
+    Matrix initial;
+    Common common;
+    std::stack<std::string> path;
 
-  void printSolution();
+    void printSolution();
 
-public:
-  Ids();
-  Ids(std::string strInitial);
-  ~Ids();
-  void solve();
-  bool checkLevel(int level, int actualLevel, Matrix *actual);
-  void printAsMatrix(std::string text);
+  public:
+    Ids();
+    Ids(std::string strInitial);
+    ~Ids();
+    void solve();
+    bool checkLevel(int level, int actualLevel, Matrix *actual);
+    void printAsMatrix(std::string text);
 };
 
 #endif

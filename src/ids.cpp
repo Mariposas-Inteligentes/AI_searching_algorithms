@@ -88,7 +88,7 @@ void Ids::printSolution()
   while (!this->path.empty())
   {
     std::string actualNode = this->path.top();
-    this->printAsMatrix(actualNode);
+    std::cout << this->common.printAsMatrix(actualNode, SIZE);
     std::cout << "\n";
     this->path.pop();
   }
