@@ -2,14 +2,14 @@
 
 #include "ids.hpp"
 
-Ids::Ids()
+Ids::Ids() : initial(new Matrix())
 {
-  this->initial.fillMatrix("724506831");
+  this->initial->fillMatrix("724506831");
 }
 
-Ids::Ids(std::string strInitial)
+Ids::Ids(std::string strInitial): initial(new Matrix())
 {
-  this->initial.fillMatrix(strInitial);
+  this->initial->fillMatrix(strInitial);
 }
 
 Ids::~Ids()
@@ -21,7 +21,7 @@ void Ids::solve()
   bool solved = false;
   for (int level = 0; level < LIMIT; ++level)
   {
-    solved = checkLevel(level, 0, &initial);
+    solved = checkLevel(level, 0, initial);
     if (solved)
     {
       this->printSolution();
@@ -34,7 +34,7 @@ void Ids::solve()
   }
 }
 
-bool Ids::checkLevel(int level, int actualLevel, Matrix *actual)
+bool Ids::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual)
 {
   if (level == actualLevel)
   {
@@ -50,13 +50,12 @@ bool Ids::checkLevel(int level, int actualLevel, Matrix *actual)
     {
       if (actual->possibleMove(dir))
       {
-        Matrix *newMatrix = actual->movePiece(dir);
+        std::shared_ptr<Matrix> newMatrix = actual->movePiece(dir);
         if (this->checkLevel(level, actualLevel + 1, newMatrix))
         {
           this->path.push(actual->toString());
           return true;
         }
-        delete newMatrix;
       }
     }
   }

@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <memory>
 
 #define SIZE 3
 #define INVALID -1
@@ -27,21 +29,20 @@ class Matrix
   const std::string solution = "012345678";
 
 private:
-  int **matrix;
+  std::vector<std::vector<int>> matrix;
   int row0;
   int col0;
 
 public:
   Matrix();
-  Matrix(int **matrix);
+  Matrix(std::vector<std::vector<int>> matrix);
   ~Matrix();
   void fillMatrix(std::string numbers);
-  int *operator[](int index);
   bool verifySolution();
   std::string toString();
   std::ostream &printMatrix(std::ostream &output);
   bool possibleMove(int dir);
-  Matrix *movePiece(int dir);
+  std::shared_ptr<Matrix> movePiece(int dir);
 };
 
 #endif

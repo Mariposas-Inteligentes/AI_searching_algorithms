@@ -27,7 +27,7 @@ int main(int argc, char **argv)
   bf_algorithm.solve();
 
   // IDS* Algorithm
-  std::cout << "IDS* Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
+  std::cout << "\n\nIDS* Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
   std::cout << "Solution printed from start to end: \n";
   Ids_H idsh_algorithm(initial);
   idsh_algorithm.solve();

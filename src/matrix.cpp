@@ -2,23 +2,16 @@
 
 #include "matrix.hpp"
 
-Matrix::Matrix()
+Matrix::Matrix(): matrix(3, std::vector<int>(3))
 {
   this->row0 = INVALID;
   this->col0 = INVALID;
-  this->matrix = new int *[SIZE];
-  for (int row = 0; row < SIZE; ++row)
-  {
-    this->matrix[row] = new int[SIZE];
-  }
 }
 
-Matrix::Matrix(int **matrix)
+Matrix::Matrix(std::vector<std::vector<int>>matrix) : matrix(3, std::vector<int>(3))
 {
-  this->matrix = new int *[SIZE];
   for (int row = 0; row < SIZE; ++row)
   {
-    this->matrix[row] = new int[SIZE];
     for (int col = 0; col < SIZE; ++col)
     {
       this->matrix[row][col] = matrix[row][col];
@@ -33,11 +26,6 @@ Matrix::Matrix(int **matrix)
 
 Matrix::~Matrix()
 {
-  for (int row = 0; row < SIZE; ++row)
-  {
-    delete[] this->matrix[row];
-  }
-  delete[] this->matrix;
 }
 
 void Matrix::fillMatrix(std::string numbers)
@@ -55,11 +43,6 @@ void Matrix::fillMatrix(std::string numbers)
       }
     }
   }
-}
-
-int *Matrix::operator[](int index)
-{
-  return this->matrix[index];
 }
 
 std::string Matrix::toString()
@@ -106,9 +89,9 @@ bool Matrix::possibleMove(int dir)
   return false;
 }
 
-Matrix *Matrix::movePiece(int dir)
+std::shared_ptr<Matrix> Matrix::movePiece(int dir)
 {
-  Matrix *newMatrix = new Matrix(this->matrix);
+  std::shared_ptr<Matrix> newMatrix (new Matrix(this->matrix));
   newMatrix->matrix[newMatrix->row0][newMatrix->col0] =
       newMatrix->matrix[newMatrix->row0 + this->move_row[dir]][newMatrix->col0 + this->move_col[dir]];
   newMatrix->row0 += this->move_row[dir];

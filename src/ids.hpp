@@ -8,13 +8,14 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <memory>
 
 #define LIMIT 40320
 
 class Ids
 {
   private:
-    Matrix initial;
+    std::shared_ptr<Matrix> initial;
     Common common;
     std::stack<std::string> path;
 
@@ -25,7 +26,7 @@ class Ids
     Ids(std::string strInitial);
     ~Ids();
     void solve();
-    bool checkLevel(int level, int actualLevel, Matrix *actual);
+    bool checkLevel(int level, int actualLevel, std::shared_ptr<Matrix>actual);
     void printAsMatrix(std::string text);
 };
 

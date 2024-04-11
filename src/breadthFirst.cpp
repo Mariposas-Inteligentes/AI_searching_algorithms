@@ -40,13 +40,12 @@ void BreadthFirst::solve() {
     // Look for the next nodes
     for (int dir = 0; dir < DIRECTIONS; ++dir) {
       if (this->actualMatrix.possibleMove(dir)) {
-        Matrix *newMatrix = actualMatrix.movePiece(dir);
+        std::shared_ptr<Matrix> newMatrix = actualMatrix.movePiece(dir);
         // If new matrix was not previously checked, then add it to the queue
         if (this->visited.find(newMatrix->toString()) == this->visited.end()) {
           std::shared_ptr<Node> nextNode (new Node(newMatrix->toString(), actualNode));
           this->pending.push(nextNode);
         }
-        delete newMatrix;
       }
     }
   }
