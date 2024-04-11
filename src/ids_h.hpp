@@ -18,9 +18,9 @@ class Ids_H
     std::shared_ptr<Matrix> initial;
     Common common;
     std::stack<std::string> path;
+    int lowestCost;
 
     bool checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual);
-    std::shared_ptr<Matrix> findNextLevel(std::shared_ptr<Matrix> actual, int* actualCost);
     void printSolution();
 
   public:

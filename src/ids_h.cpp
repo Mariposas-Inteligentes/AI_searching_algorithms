@@ -5,11 +5,13 @@
 Ids_H::Ids_H(): initial(new Matrix())
 {
   this->initial->fillMatrix("724506831");
+  this->lowestCost = INT16_MAX;
 }
 
 Ids_H::Ids_H(std::string strInitial): initial(new Matrix())
 {
   this->initial->fillMatrix(strInitial);
+  this->lowestCost = INT16_MAX;
 }
 
 Ids_H::~Ids_H()
@@ -18,9 +20,14 @@ Ids_H::~Ids_H()
 
 void Ids_H::solve()
 {
+  int nextLevel = 0;
   bool solved = false;
-  
-  solved = this->checkLevel(0, 0, initial);
+
+  while (!solved) {
+    solved = this->checkLevel(nextLevel, 0, initial);
+    nextLevel += this->lowestCost;
+    this->lowestCost = INT16_MAX;
+  }
 
   if (solved) {
     this->printSolution();
@@ -31,17 +38,23 @@ void Ids_H::solve()
 }
 
 bool Ids_H::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual) {
-  if (level == actualLevel) {
-    if (actual->verifySolution()) {
-      this->path.push(actual->toString());
+  if (level == actualLevel) {  // This is the desired level
+    if (actual->verifySolution()) {  // A solution was found
+      this->path.push(actual->toString());  // Save the path
       return true;
     }
     else {  // This is the level, but it is not a solution
-      // First, find the next path
-      std::shared_ptr<Matrix> newMatrix = this->findNextLevel(actual, &level);
-      // Second, recursive call if less than the limit
-      if (level <= LIMIT) {
-        if (this->checkLevel(level, actualLevel, newMatrix)) {
+      // Check if the cost is lower than the last found
+      int cost = this->common.heuristic(actual->toString());
+      if (cost < this->lowestCost) {
+        this->lowestCost = cost;
+      }
+    }
+  } else {  // This is not the desired level yet
+    for (int dir = 0; dir < DIRECTIONS; ++dir) {
+      if (actual->possibleMove(dir)) {
+        std::shared_ptr<Matrix> newMatrix = actual->movePiece(dir);
+        if (this->checkLevel(level, actualLevel + 1, newMatrix)) {
           this->path.push(actual->toString());
           return true;
         }
@@ -49,30 +62,6 @@ bool Ids_H::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actua
     }
   }
   return false;
-}
-
-std::shared_ptr<Matrix>  Ids_H::findNextLevel(std::shared_ptr<Matrix> actual, int* actualCost) {
-  std::shared_ptr<Matrix> desiredMatrix(0);
-  int minCost = INT64_MAX;
-  int cost = 0;
-
-  for (int dir = 0; dir < DIRECTIONS; ++dir)
-  {
-    if (actual->possibleMove(dir))
-    {
-      std::shared_ptr<Matrix> newMatrix = actual->movePiece(dir);
-      cost = common.heuristic(newMatrix->toString());
-      if (cost < minCost) {
-        cost = minCost;
-        desiredMatrix = newMatrix;
-      }
-    }
-  }
-
-  // The new cost is updated
-  *actualCost += cost;
-
-  return desiredMatrix;
 }
 
 void Ids_H::printSolution()
