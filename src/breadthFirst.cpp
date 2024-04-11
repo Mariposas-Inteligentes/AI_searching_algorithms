@@ -1,11 +1,14 @@
 #include "breadthFirst.hpp"
+#include "common.hpp"
 
 BreadthFirst::BreadthFirst() {
-  this->pending.push(new Node("142350678"));
+  std::shared_ptr<Node> initialNode (new Node("142350678"));
+  this->pending.push(initialNode);
 }
 
 BreadthFirst::BreadthFirst(std::string initial) {
-  this->pending.push(new Node(initial));
+  std::shared_ptr<Node> initialNode (new Node(initial));
+  this->pending.push(initialNode);
 }
 
 BreadthFirst::~BreadthFirst() {
@@ -17,7 +20,7 @@ void BreadthFirst::solve() {
   // Root is already in the queue
   while (!this->pending.empty()){
     // Get next node and uptate it to the matrix
-    Node* actualNode = this->pending.front();
+    std::shared_ptr<Node> actualNode = this->pending.front();
 
     actualMatrix.fillMatrix(actualNode->getValue());
     this->pending.pop();
@@ -40,7 +43,8 @@ void BreadthFirst::solve() {
         Matrix *newMatrix = actualMatrix.movePiece(dir);
         // If new matrix was not previously checked, then add it to the queue
         if (this->visited.find(newMatrix->toString()) == this->visited.end()) {
-          this->pending.push(new Node(newMatrix->toString(), actualNode));
+          std::shared_ptr<Node> nextNode (new Node(newMatrix->toString(), actualNode));
+          this->pending.push(nextNode);
         }
         delete newMatrix;
       }
@@ -52,26 +56,13 @@ void BreadthFirst::solve() {
   }
 }
 
-void BreadthFirst::printAsMatrix(std::string text) {
-  for (int i = 0; i < text.length(); ++i) {
-    if (i % SIZE == 0) {
-      std::cout << "\n";
-    }
-
-    if (text[i] != '0') {
-      std::cout << text[i] << " ";
-    } else {
-      std::cout << "_ ";
-    }
-  }
-}
-
-void BreadthFirst::printSolution(Node * finalNode) {
+void BreadthFirst::printSolution(std::shared_ptr<Node> finalNode) {
+  Common printer;
   while (finalNode->getParent() != 0) {
-    this->printAsMatrix(finalNode->getValue());
+    std::cout << printer.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
     std::cout << std::endl;
     finalNode = finalNode->getParent();
   }
   // when we exit this cycle, the final node is the root, and we still need to print it
-  this->printAsMatrix(finalNode->getValue());
+  std::cout << printer.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
 }

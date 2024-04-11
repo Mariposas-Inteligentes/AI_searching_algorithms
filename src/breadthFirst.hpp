@@ -5,11 +5,12 @@
 #include "node.hpp"
 #include <queue>
 #include <set>
+#include <memory>
 
 class BreadthFirst {
   private:
     Matrix actualMatrix;
-    std::queue<Node*> pending;
+    std::queue<std::shared_ptr<Node>> pending;
     std::set<std::string> visited;
 
   public:
@@ -17,8 +18,7 @@ class BreadthFirst {
     BreadthFirst(std::string initial);
     ~BreadthFirst();
     void solve();
-    void printAsMatrix(std::string text);
-    void printSolution(Node * finalNode);
+    void printSolution(std::shared_ptr<Node> finalNode);
 };
 
 #endif

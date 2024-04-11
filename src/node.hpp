@@ -2,18 +2,19 @@
 #define NODE
 
 #include <string>
+#include <memory>
 
 class Node {
   private:
     std::string value;
-    Node* parentNode;
+    std::shared_ptr<Node> parentNode;
   public:
     Node(std::string value);
-    Node(std::string value, Node* parent);
+    Node(std::string value, std::shared_ptr<Node> parent);
     ~Node();
-    void setParent(Node* parent);
+    void setParent(std::shared_ptr<Node> parent);
     std::string getValue();
-    Node* getParent();
+    std::shared_ptr<Node> getParent();
 };
 
 #endif
