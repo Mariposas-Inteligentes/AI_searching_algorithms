@@ -26,7 +26,7 @@ void Ids_H::solve()
   while (!solved) {
     solved = this->checkLevel(nextLevel, 0, initial);
     nextLevel += this->lowestCost;
-    this->lowestCost = INT32_MAX;=
+    this->lowestCost = INT32_MAX;
   }
 
   if (solved) {
@@ -45,15 +45,9 @@ bool Ids_H::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actua
     }
     else {  // This is the level, but it is not a solution
       // Check if the cost is lower than the last found
-      int cost = 0;
-      for (int dir = 0; dir < DIRECTIONS; ++dir) {
-        if (actual->possibleMove(dir)) {
-          std::shared_ptr<Matrix> newMatrix = actual->movePiece(dir);
-          cost = this->common.heuristic(newMatrix->toString());
-          if (cost < this->lowestCost) {
-            this->lowestCost = cost;
-          }
-        }
+      int cost = this->common.heuristic(actual->toString());
+      if (cost < this->lowestCost) {
+        this->lowestCost = cost;
       }
     }
   } else {  // This is not the desired level yet
