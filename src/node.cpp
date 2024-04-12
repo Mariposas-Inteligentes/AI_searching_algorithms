@@ -3,11 +3,13 @@
 Node::Node(std::string value) {
   this->value = value;
   this->parentNode = 0;
+  this->cost = 0;
 }
 
 Node::Node(std::string value, std::shared_ptr<Node> parent) {
   this->value = value;
   this->parentNode = parent;
+  this->cost = 0;
 }
 
 Node::~Node() {
@@ -24,5 +26,13 @@ std::string Node::getValue() {
 
 std::shared_ptr<Node> Node::getParent() {
   return this->parentNode;
+}
+
+int Node::getCost() {
+  return this->cost;
+}
+
+void Node::setCost(int cost) {
+  this->cost = cost;
 }
 
