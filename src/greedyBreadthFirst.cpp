@@ -3,24 +3,67 @@
 #include "greedyBreadthFirst.hpp"
 
 GreedyBreadthFirst::GreedyBreadthFirst() {
-  // "142350678"
+  this->init("142350678");
 }
 
 GreedyBreadthFirst::GreedyBreadthFirst(std::string initialState) {
-  // initialState
+  this->init(initialState);
+}
+
+void GreedyBreadthFirst::init(std::string initialState) {
+  int cost = this->common.heuristic(initialState);
+  std::shared_ptr<Node> initialNode(new Node(initialState));
+  initialNode->setCost(cost);
+  this->openList.push(initialNode);
 }
 
 GreedyBreadthFirst::~GreedyBreadthFirst() {
-
 }
 
 void GreedyBreadthFirst::solve() {
   bool solved = false;
-  while (!solved && !this->openList.empty()) {
-    // solve
+  while (!this->openList.empty()) {
+    std::shared_ptr<Node> actualNode = this->openList.top();
+    actualMatrix.fillMatrix(actualNode->getValue());
+    this->openList.pop();
+
+    if (this->actualMatrix.verifySolution()) {
+      solved = true;
+      this->printSolution(actualNode);
+      this->openList.push(actualNode);
+      break;
+    }
+
+    this->closedList.insert(actualNode->getValue());
+    this->findMovements(actualNode);
+  }
+
+  if (!solved) {
+    std::cout << "The solution does not exist" << std::endl;
   }
 }
 
-void GreedyBreadthFirst::printSolution() {
-  // print
+void GreedyBreadthFirst::findMovements(std::shared_ptr<Node>& actualNode) {
+  for (int dir = 0; dir < DIRECTIONS; ++dir) {
+    if(this->actualMatrix.possibleMove(dir)) {
+      std::shared_ptr<Matrix> newMatrix = actualMatrix.movePiece(dir);
+      // If new matrix was not previously checked, then add it to the queue
+      if (this->closedList.find(newMatrix->toString()) == this->closedList.end()) {
+        std::shared_ptr<Node> nextNode (new Node(newMatrix->toString(), actualNode));
+        int cost = this->common.heuristic(nextNode->getValue());
+        nextNode->setCost(cost);
+        this->openList.push(nextNode);
+      }
+    }
+  } 
+}
+
+void GreedyBreadthFirst::printSolution(std::shared_ptr<Node> finalNode) {
+  while (finalNode->getParent() != 0) {
+    std::cout << this->common.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
+    std::cout << std::endl;
+    finalNode = finalNode->getParent();
+  }
+  // when we exit this cycle, the final node is the root, and we still need to print it
+  std::cout << this->common.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
 }

@@ -5,6 +5,7 @@
 
 #include "common.hpp"
 #include "matrix.hpp"
+#include "node.hpp"
 
 #include <string>
 #include <set>
@@ -14,12 +15,15 @@ class GreedyBreadthFirst {
   private:
     // Attributes
     std::shared_ptr<Matrix> initialState;
-    std::priority_queue<int> openList;
+    std::priority_queue<std::shared_ptr<Node>, std::vector<std::shared_ptr<Node>>, CompareNodes> openList;
     std::set<std::string> closedList;
+    Matrix actualMatrix;
     Common common;
 
     // Methods
-    void printSolution();
+    void init(std::string initialState);
+    void findMovements(std::shared_ptr<Node>& actualNode);
+    void printSolution(std::shared_ptr<Node> finalNode);
 
   public:
     GreedyBreadthFirst();

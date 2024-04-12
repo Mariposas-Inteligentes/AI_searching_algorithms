@@ -29,8 +29,8 @@ class Node {
 };
 
 struct CompareNodes {
-  bool operator()(const std::shared_ptr<Node> lf, const std::shared_ptr<Node> rg) const {
-    return lf->getCost() > rg->getCost();
+  bool operator()(const std::shared_ptr<Node> leftSide, const std::shared_ptr<Node> rightSide) const {
+    return leftSide->getCost() > rightSide->getCost();
   }
 };
 
