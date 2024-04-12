@@ -1,3 +1,5 @@
+// Authors: Luis Solano, Angie Solís, Emilia Víquez
+
 #include "greedyBreadthFirst.hpp"
 
 GreedyBreadthFirst::GreedyBreadthFirst() {

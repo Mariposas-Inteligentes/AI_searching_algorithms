@@ -12,8 +12,7 @@
 
 #define LIMIT 40320
 
-class Ids
-{
+class Ids {
   private:
     std::shared_ptr<Matrix> initial;
     Common common;

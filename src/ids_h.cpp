@@ -2,24 +2,20 @@
 
 #include "ids_h.hpp"
 
-Ids_H::Ids_H(): initial(new Matrix())
-{
+Ids_H::Ids_H(): initial(new Matrix()) {
   this->initial->fillMatrix("724506831");
   this->lowestCost = INT32_MAX;
 }
 
-Ids_H::Ids_H(std::string strInitial): initial(new Matrix())
-{
+Ids_H::Ids_H(std::string strInitial): initial(new Matrix()) {
   this->initial->fillMatrix(strInitial);
   this->lowestCost = INT32_MAX;
 }
 
-Ids_H::~Ids_H()
-{
+Ids_H::~Ids_H(){
 }
 
-void Ids_H::solve()
-{
+void Ids_H::solve() {
   int nextLevel = 0;
   bool solved = false;
 
@@ -64,8 +60,7 @@ bool Ids_H::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actua
   return false;
 }
 
-void Ids_H::printSolution()
-{
+void Ids_H::printSolution() {
   while (!this->path.empty())
   {
     std::string actualNode = this->path.top();

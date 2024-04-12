@@ -2,22 +2,18 @@
 
 #include "ids.hpp"
 
-Ids::Ids() : initial(new Matrix())
-{
+Ids::Ids() : initial(new Matrix()) {
   this->initial->fillMatrix("724506831");
 }
 
-Ids::Ids(std::string strInitial): initial(new Matrix())
-{
+Ids::Ids(std::string strInitial): initial(new Matrix()) {
   this->initial->fillMatrix(strInitial);
 }
 
-Ids::~Ids()
-{
+Ids::~Ids(){
 }
 
-void Ids::solve()
-{
+void Ids::solve() {
   bool solved = false;
   for (int level = 0; level < LIMIT; ++level)
   {
@@ -34,8 +30,7 @@ void Ids::solve()
   }
 }
 
-bool Ids::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual)
-{
+bool Ids::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual) {
   if (level == actualLevel)
   {
     if (actual->verifySolution())
@@ -62,8 +57,7 @@ bool Ids::checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual)
   return false;
 }
 
-void Ids::printAsMatrix(std::string text)
-{
+void Ids::printAsMatrix(std::string text) {
   for (int i = 0; i < text.length(); ++i)
   {
     if (i % SIZE == 0)
@@ -82,8 +76,7 @@ void Ids::printAsMatrix(std::string text)
   }
 }
 
-void Ids::printSolution()
-{
+void Ids::printSolution() {
   while (!this->path.empty())
   {
     std::string actualNode = this->path.top();

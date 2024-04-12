@@ -1,3 +1,5 @@
+// Authors: Luis Solano, Angie Solís, Emilia Víquez
+
 #ifndef BREADTH_FIRST
 #define BREADTH_FIRST
 

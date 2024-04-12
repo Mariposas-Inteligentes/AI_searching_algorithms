@@ -2,14 +2,12 @@
 
 #include "matrix.hpp"
 
-Matrix::Matrix(): matrix(3, std::vector<int>(3))
-{
+Matrix::Matrix(): matrix(3, std::vector<int>(3)) {
   this->row0 = INVALID;
   this->col0 = INVALID;
 }
 
-Matrix::Matrix(std::vector<std::vector<int>>matrix) : matrix(3, std::vector<int>(3))
-{
+Matrix::Matrix(std::vector<std::vector<int>>matrix) : matrix(3, std::vector<int>(3)) {
   for (int row = 0; row < SIZE; ++row)
   {
     for (int col = 0; col < SIZE; ++col)
@@ -24,12 +22,10 @@ Matrix::Matrix(std::vector<std::vector<int>>matrix) : matrix(3, std::vector<int>
   }
 }
 
-Matrix::~Matrix()
-{
+Matrix::~Matrix() {
 }
 
-void Matrix::fillMatrix(std::string numbers)
-{
+void Matrix::fillMatrix(std::string numbers) {
   int string_count = 0;
   for (int row = 0; row < SIZE; ++row)
   {
@@ -45,8 +41,7 @@ void Matrix::fillMatrix(std::string numbers)
   }
 }
 
-std::string Matrix::toString()
-{
+std::string Matrix::toString() {
   std::stringstream solution;
   for (int row = 0; row < SIZE; ++row)
   {
@@ -58,13 +53,11 @@ std::string Matrix::toString()
   return solution.str();
 }
 
-bool Matrix::verifySolution()
-{
+bool Matrix::verifySolution() {
   return this->toString() == this->solution;
 }
 
-std::ostream &Matrix::printMatrix(std::ostream &output)
-{
+std::ostream &Matrix::printMatrix(std::ostream &output) {
   for (int row = 0; row < SIZE; ++row)
   {
     for (int col = 0; col < SIZE; ++col)
@@ -77,8 +70,7 @@ std::ostream &Matrix::printMatrix(std::ostream &output)
   return output;
 }
 
-bool Matrix::possibleMove(int dir)
-{
+bool Matrix::possibleMove(int dir) {
   if (this->row0 + move_row[dir] >= 0 && this->row0 + move_row[dir] < SIZE)
   {
     if (this->col0 + move_col[dir] >= 0 && this->col0 + move_col[dir] < SIZE)
@@ -89,8 +81,7 @@ bool Matrix::possibleMove(int dir)
   return false;
 }
 
-std::shared_ptr<Matrix> Matrix::movePiece(int dir)
-{
+std::shared_ptr<Matrix> Matrix::movePiece(int dir) {
   std::shared_ptr<Matrix> newMatrix (new Matrix(this->matrix));
   newMatrix->matrix[newMatrix->row0][newMatrix->col0] =
       newMatrix->matrix[newMatrix->row0 + this->move_row[dir]][newMatrix->col0 + this->move_col[dir]];

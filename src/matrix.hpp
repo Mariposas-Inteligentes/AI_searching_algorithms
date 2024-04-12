@@ -17,10 +17,8 @@
 #define DOWN 2
 #define LEFT 3
 
-class Matrix
-{
-  friend std::ostream &operator<<(std::ostream &output, Matrix &matrix)
-  {
+class Matrix {
+  friend std::ostream &operator<<(std::ostream &output, Matrix &matrix) {
     return matrix.printMatrix(output);
   }
 

@@ -1,3 +1,5 @@
+// Authors: Luis Solano, Angie Solís, Emilia Víquez
+
 #include "node.hpp"
 
 Node::Node(std::string value) {
