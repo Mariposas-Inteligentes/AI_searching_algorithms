@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 
+#include <iostream>
+
 class Node {
   private:
     std::string value;
@@ -19,6 +21,15 @@ class Node {
     std::shared_ptr<Node> getParent();
     int getCost();
     std::string getValue();
+
+    // TODO(Luis): Delete
+    void print();
+};
+
+struct CompareNodes {
+  bool operator()(const std::shared_ptr<Node> lf, const std::shared_ptr<Node> rg) const {
+    return lf->getCost() > rg->getCost();
+  }
 };
 
 #endif

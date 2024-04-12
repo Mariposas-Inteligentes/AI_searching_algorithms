@@ -36,3 +36,7 @@ void Node::setCost(int cost) {
   this->cost = cost;
 }
 
+// TODO(Luis): Delete
+void Node::print() {
+  std::cout << "Cost: " << this->cost <<"\n";
+}
