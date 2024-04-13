@@ -48,7 +48,7 @@ void Ids_H::solve() {
 
   if (measure) {
     std::chrono::duration<double> diff = end - start;
-    std::cout << "Time taken in IDS: " << diff.count() 
+    std::cout << "Time taken in IDS*: " << diff.count() 
                   <<  "   memory used:  " << size << std::endl;
   }
 }
