@@ -9,13 +9,18 @@
 
 int main(int argc, char **argv) {
   std::string initial = "724506831";
-  if (argc == 2)
+  bool measure = false;
+  if (argc >= 2)
   {
     initial = argv[1];
   }
+  if (argc == 3) {
+    if (argv[2][0] == '1') {
+      measure = true;
+    }
+  } 
 
   // IDS Algorithm
-  /*
   std::cout << "IDS Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
   std::cout << "Solution printed from start to end: \n";
   Ids ids_algorithm(initial);
@@ -24,7 +29,7 @@ int main(int argc, char **argv) {
   // Breadth-First Algorithm
   std::cout << "\n\nBreadth-First Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
   std::cout << "Solution printed from end to start: \n";
-  BreadthFirst bf_algorithm(initial);
+  BreadthFirst bf_algorithm(initial, measure);
   bf_algorithm.solve();
 
   // IDS* Algorithm
@@ -32,12 +37,12 @@ int main(int argc, char **argv) {
   std::cout << "Solution printed from start to end: \n";
   Ids_H idsh_algorithm(initial);
   idsh_algorithm.solve();
-  */
+  
 
   // Greedy Breadth-First Algorithm
   std::cout << "\n\nGreedy Breadth-First Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
   std::cout << "Solution printed from end to start: \n";
-  GreedyBreadthFirst greedy_algorithm(initial);
+  GreedyBreadthFirst greedy_algorithm(initial, measure);
   greedy_algorithm.solve();
 
   return 0;

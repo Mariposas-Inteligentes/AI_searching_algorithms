@@ -6,11 +6,15 @@
 BreadthFirst::BreadthFirst() {
   std::shared_ptr<Node> initialNode (new Node("142350678"));
   this->pending.push(initialNode);
+  this->measure = false;
+  this->size = 0;
 }
 
-BreadthFirst::BreadthFirst(std::string initial) {
+BreadthFirst::BreadthFirst(std::string initial, bool measure) {
   std::shared_ptr<Node> initialNode (new Node(initial));
   this->pending.push(initialNode);
+  this->measure = measure;
+  this->size = 0;
 }
 
 BreadthFirst::~BreadthFirst() {
@@ -18,6 +22,9 @@ BreadthFirst::~BreadthFirst() {
 }
 
 void BreadthFirst::solve() {
+  if (measure) {
+    this->start = std::chrono::high_resolution_clock::now();
+  }
   bool solved = false;
   // Root is already in the queue
   while (!this->pending.empty()){
@@ -30,6 +37,12 @@ void BreadthFirst::solve() {
     // If it is the correct node, break the cicle
     if (this->actualMatrix.verifySolution()) {
       solved = true;
+      if (measure) {
+        // if we wanted to measure time, then we need to stop it here.
+        this->end = std::chrono::high_resolution_clock::now();
+        this->size = sizeof(std::shared_ptr<Node>) * this->pending.size();
+        this->size += sizeof(std::string) * this->visited.size();
+      }
       this->printSolution(actualNode);
       // We need the queue destructor to eliminate 
       this->pending.push(actualNode);
@@ -54,6 +67,15 @@ void BreadthFirst::solve() {
 
   if (!solved) {
     std::cout << "The solution does not exist" << std::endl;
+    if (measure) {
+        // if we wanted to measure time, then we need to stop it here.
+        this->end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+        this->size = sizeof(std::shared_ptr<Node>) * this->pending.size();
+        this->size += sizeof(std::string) * this->visited.size();
+        std::cout << "Time taken in breadth-first: " << diff.count() 
+                  <<  "   memory used:  " << this->size << "\n";
+      }
   }
 }
 
@@ -66,4 +88,9 @@ void BreadthFirst::printSolution(std::shared_ptr<Node> finalNode) {
   }
   // when we exit this cycle, the final node is the root, and we still need to print it
   std::cout << printer.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
+  if (measure) {
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Time taken in breadth-first: " << diff.count()
+         <<  "   memory used:  " << this->size << "\n";
+  }
 }

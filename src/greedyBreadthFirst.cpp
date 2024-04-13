@@ -4,10 +4,12 @@
 
 GreedyBreadthFirst::GreedyBreadthFirst() {
   this->init("142350678");
+  this->measure = false;
 }
 
-GreedyBreadthFirst::GreedyBreadthFirst(std::string initialState) {
+GreedyBreadthFirst::GreedyBreadthFirst(std::string initialState, bool measure) {
   this->init(initialState);
+  this->measure = measure;
 }
 
 void GreedyBreadthFirst::init(std::string initialState) {
@@ -21,6 +23,9 @@ GreedyBreadthFirst::~GreedyBreadthFirst() {
 }
 
 void GreedyBreadthFirst::solve() {
+  if (measure) {
+    this->start = std::chrono::high_resolution_clock::now();
+  }
   bool solved = false;
   while (!this->openList.empty()) {
     std::shared_ptr<Node> actualNode = this->openList.top();
@@ -29,6 +34,11 @@ void GreedyBreadthFirst::solve() {
 
     if (this->actualMatrix.verifySolution()) {
       solved = true;
+
+      if (measure) {
+        // if we wanted to measure time, then we need to stop it here.
+        this->end = std::chrono::high_resolution_clock::now();
+      }
       this->printSolution(actualNode);
       this->openList.push(actualNode);
       break;
@@ -40,6 +50,12 @@ void GreedyBreadthFirst::solve() {
 
   if (!solved) {
     std::cout << "The solution does not exist" << std::endl;
+    if (measure) {
+        // if we wanted to measure time, then we need to stop it here.
+        this->end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> diff = end - start;
+        std::cout << "Time taken in greedy breadth-first: " << diff.count() << "\n";
+      }
   }
 }
 
@@ -66,4 +82,9 @@ void GreedyBreadthFirst::printSolution(std::shared_ptr<Node> finalNode) {
   }
   // when we exit this cycle, the final node is the root, and we still need to print it
   std::cout << this->common.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
+
+  if (measure) {
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Time taken in greedy breadth-first: " << diff.count() << "\n";
+  }
 }

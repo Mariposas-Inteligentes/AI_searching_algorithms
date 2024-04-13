@@ -10,6 +10,7 @@
 #include <string>
 #include <set>
 #include <queue>
+#include <chrono>
 
 class GreedyBreadthFirst {
   private:
@@ -19,6 +20,9 @@ class GreedyBreadthFirst {
     std::set<std::string> closedList;
     Matrix actualMatrix;
     Common common;
+    bool measure;
+    std::chrono::_V2::system_clock::time_point start;
+    std::chrono::_V2::system_clock::time_point end;
 
     // Methods
     void init(std::string initialState);
@@ -27,7 +31,7 @@ class GreedyBreadthFirst {
 
   public:
     GreedyBreadthFirst();
-    GreedyBreadthFirst(std::string initialState);
+    GreedyBreadthFirst(std::string initialState, bool measure);
     ~GreedyBreadthFirst();
     void solve();
 };
