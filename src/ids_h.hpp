@@ -7,6 +7,7 @@
 #include "matrix.hpp"
 
 #include <iostream>
+#include <chrono>
 #include <stack>
 #include <string>
 
@@ -18,13 +19,14 @@ class Ids_H {
     Common common;
     std::stack<std::string> path;
     int lowestCost;
+    bool measure;
 
     bool checkLevel(int level, int actualLevel, std::shared_ptr<Matrix> actual);
     void printSolution();
 
   public:
     Ids_H();
-    Ids_H(std::string strInitial);
+    Ids_H(std::string strInitial, bool measure);
     ~Ids_H();
     void solve();
 };

@@ -4,9 +4,11 @@
 
 Ids::Ids() : initial(new Matrix()) {
   this->initial->fillMatrix("724506831");
+  this->measure = false;
 }
 
-Ids::Ids(std::string strInitial): initial(new Matrix()) {
+Ids::Ids(std::string strInitial, bool measure)
+    : initial(new Matrix()), measure(measure) {
   this->initial->fillMatrix(strInitial);
 }
 
@@ -15,18 +17,41 @@ Ids::~Ids(){
 
 void Ids::solve() {
   bool solved = false;
+  std::chrono::_V2::system_clock::time_point start;
+  std::chrono::_V2::system_clock::time_point end;
+  long size = 0;
+
+  if (measure) {
+    start = std::chrono::high_resolution_clock::now();
+  }
+
   for (int level = 0; level < LIMIT; ++level)
   {
     solved = checkLevel(level, 0, initial);
     if (solved)
     {
+      if (measure) {
+        end = std::chrono::high_resolution_clock::now();
+        size = sizeof(std::string) * this->path.size();
+      }
+
       this->printSolution();
       break;
     }
   }
   if (!solved)
   {
+    if (measure) {
+      end = std::chrono::high_resolution_clock::now();
+      size = sizeof(std::string) * this->path.size();
+    }
     std::cout << "No solution was found in " << LIMIT << " levels" << std::endl;
+  }
+
+  if (measure) {
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Time taken in IDS: " << diff.count() 
+                  <<  "   memory used:  " << size << std::endl;
   }
 }
 

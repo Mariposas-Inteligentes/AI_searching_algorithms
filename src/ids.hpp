@@ -6,9 +6,10 @@
 #include "common.hpp"
 #include "matrix.hpp"
 #include <iostream>
+#include <chrono>
+#include <memory>
 #include <stack>
 #include <string>
-#include <memory>
 
 #define LIMIT 40320
 
@@ -17,12 +18,13 @@ class Ids {
     std::shared_ptr<Matrix> initial;
     Common common;
     std::stack<std::string> path;
+    bool measure;
 
     void printSolution();
 
   public:
     Ids();
-    Ids(std::string strInitial);
+    Ids(std::string strInitial, bool measure);
     ~Ids();
     void solve();
     bool checkLevel(int level, int actualLevel, std::shared_ptr<Matrix>actual);

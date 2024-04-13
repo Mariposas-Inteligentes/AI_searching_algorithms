@@ -5,9 +5,11 @@
 Ids_H::Ids_H(): initial(new Matrix()) {
   this->initial->fillMatrix("724506831");
   this->lowestCost = INT32_MAX;
+  this->measure = measure;
 }
 
-Ids_H::Ids_H(std::string strInitial): initial(new Matrix()) {
+Ids_H::Ids_H(std::string strInitial, bool measure)
+    : initial(new Matrix()), measure(measure) {
   this->initial->fillMatrix(strInitial);
   this->lowestCost = INT32_MAX;
 }
@@ -18,11 +20,23 @@ Ids_H::~Ids_H(){
 void Ids_H::solve() {
   int nextLevel = 0;
   bool solved = false;
+  std::chrono::_V2::system_clock::time_point start;
+  std::chrono::_V2::system_clock::time_point end;
+  long size = 0;
 
-  while (!solved) {
+  if (measure) {
+    start = std::chrono::high_resolution_clock::now();
+  }
+
+  while (!solved && nextLevel < LIMIT) {
     solved = this->checkLevel(nextLevel, 0, initial);
     nextLevel += this->lowestCost;
     this->lowestCost = INT32_MAX;
+  }
+
+  if (measure) {
+    end = std::chrono::high_resolution_clock::now();
+    size = sizeof(std::string) * this->path.size();
   }
 
   if (solved) {
@@ -30,6 +44,12 @@ void Ids_H::solve() {
   }
   else {
     std::cout << "No solution was found in " << LIMIT << " levels" << std::endl;
+  }
+
+  if (measure) {
+    std::chrono::duration<double> diff = end - start;
+    std::cout << "Time taken in IDS: " << diff.count() 
+                  <<  "   memory used:  " << size << std::endl;
   }
 }
 
