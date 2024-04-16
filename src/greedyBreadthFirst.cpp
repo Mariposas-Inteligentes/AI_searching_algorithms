@@ -17,6 +17,7 @@ void GreedyBreadthFirst::init(std::string initialState) {
   std::shared_ptr<Node> initialNode(new Node(initialState));
   initialNode->setCost(cost);
   this->openList.push(initialNode);
+  this->bytes = 0;
 }
 
 GreedyBreadthFirst::~GreedyBreadthFirst() {
@@ -53,8 +54,7 @@ void GreedyBreadthFirst::solve() {
     if (measure) {
         // if we wanted to measure time, then we need to stop it here.
         this->end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff = end - start;
-        std::cout << "Time taken in greedy breadth-first: " << diff.count() << "\n";
+        this->printStats();
       }
   }
 }
@@ -84,7 +84,14 @@ void GreedyBreadthFirst::printSolution(std::shared_ptr<Node> finalNode) {
   std::cout << this->common.printAsMatrix(finalNode->getValue(), SIZE) << std::endl;
 
   if (measure) {
-    std::chrono::duration<double> diff = end - start;
-    std::cout << "Time taken in greedy breadth-first: " << diff.count() << "\n";
+    this->printStats();
   }
+}
+
+void GreedyBreadthFirst::printStats() {
+  std::chrono::duration<double> diff = end - start;
+  this->bytes = sizeof(std::shared_ptr<Node>) * this->openList.size();
+  this->bytes += sizeof(std::string) * this->closedList.size();
+  std::cout << "Time taken in greedy breadth-first: " << diff.count()
+            <<  "   memory used:  " << this->bytes << std::endl;
 }
