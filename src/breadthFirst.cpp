@@ -4,7 +4,7 @@
 #include "common.hpp"
 
 BreadthFirst::BreadthFirst() {
-  std::shared_ptr<Node> initialNode (new Node("142350678"));
+  std::shared_ptr<Node> initialNode (new Node("012345678"));
   this->pending.push(initialNode);
   this->measure = false;
   this->size = 0;

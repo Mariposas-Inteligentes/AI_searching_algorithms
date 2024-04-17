@@ -3,7 +3,7 @@
 #include "ids_h.hpp"
 
 Ids_H::Ids_H(): initial(new Matrix()) {
-  this->initial->fillMatrix("724506831");
+  this->initial->fillMatrix("012345678");
   this->lowestCost = INT32_MAX;
   this->measure = measure;
 }

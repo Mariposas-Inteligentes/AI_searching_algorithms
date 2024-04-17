@@ -3,7 +3,7 @@
 #include "greedyBreadthFirst.hpp"
 
 GreedyBreadthFirst::GreedyBreadthFirst() {
-  this->init("142350678");
+  this->init("012345678");
   this->measure = false;
 }
 

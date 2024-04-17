@@ -7,14 +7,14 @@
 + Emilia María Víquez Mora - C18625
 
 
-## Algoritmos implementados
+## **Algoritmos implementados**
 
 Se realizó una implementación de los siguientes algoritmos:
 
-1. Iterative Deep Search (IDS)
-2. Iterative Deep Search* (IDS*)
-3. Breadth First Search (BFS)
-4. Greedy Breadth First Search
+1. Breadth First Search (BFS)
+2. Greedy Breadth First Search
+3. Iterative Deep Search (IDS)
+4. Iterative Deep Search* (IDS*)
 
 Con el propósito de resolver un 8 puzzle recibido como entrada, donde se considera como solución el siguiente estado:
 
@@ -25,7 +25,7 @@ Con el propósito de resolver un 8 puzzle recibido como entrada, donde se consid
 | 6 | 7 | 8 |
 
 
-## Requerimientos
+## **Requerimientos**
 
 El programa fue realizado y comprobado con `g++ 11.4.0` en el sistema operativo `Ubuntu 22.04.3 LTS`.
 
@@ -35,7 +35,7 @@ Para encontrar su versión de `g++` puede ejecutar el siguiente comando:
   g++ --version
 ```
 
-## Instrucciones de compilación
+## **Instrucciones de compilación**
 
 Para compilar se debe encontrar dentro de la carpeta `src` y ejecutar el siguiente comando:
 
@@ -45,7 +45,7 @@ Para compilar se debe encontrar dentro de la carpeta `src` y ejecutar el siguien
 
 Esto va a ejecutar un ejecutable con el nombre `program`.
 
-## Instrucciones de ejecución
+## **Instrucciones de ejecución**
 
 Una vez generado el ejecutable, puede ejecutarlo de la siguiente manera:
 
@@ -58,7 +58,7 @@ Donde los parámetros:
 1. `initial_state` representa el estado inicial para el programa, escrito utilizando un 0 para representar el espacio vacío.
 2. `measure_time` representa si se desea observar las mediciones de tiempo, en caso de que sí se manda un 1.
 
-## Ejemplo de ejecución
+## **Ejemplo de ejecución**
 
 ```
   ./program 142358067 1

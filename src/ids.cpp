@@ -3,7 +3,8 @@
 #include "ids.hpp"
 
 Ids::Ids() : initial(new Matrix()) {
-  this->initial->fillMatrix("724506831");
+  std::string defaultStr = "012345678";
+  this->initial->fillMatrix(defaultStr);
   this->measure = false;
 }
 

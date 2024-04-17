@@ -8,7 +8,7 @@
 #include <iostream>
 
 int main(int argc, char **argv) {
-  std::string initial = "724506831";
+  std::string initial = "142358067";
   bool measure = false;
   if (argc >= 2)
   {
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
   greedy_algorithm.solve();
 
   // IDS Algorithm
-  std::cout << "IDS Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
+  std::cout << "\n\nIDS Algorithm _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _" << std::endl;
   std::cout << "Solution printed from start to end: \n";
   Ids ids_algorithm(initial, measure);
   ids_algorithm.solve();
