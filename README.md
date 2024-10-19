@@ -1,4 +1,4 @@
-# **Tarea de Searching Avanazada**
+# **Tarea de Searching Avanzada**
 
 ## **Integrantes**
 
